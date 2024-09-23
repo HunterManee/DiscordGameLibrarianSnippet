@@ -1,10 +1,8 @@
 
 class Game:
-    def __init__(self):
-        
+    def __init__(self, channel, isMultiplayer):
+        self.channel = channel
+        self.isMultiplayer = isMultiplayer
 
-        self.isMultiplay = None
         self.playerList = []
-
         self.status = 'open'
-        pass

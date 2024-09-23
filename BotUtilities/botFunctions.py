@@ -16,7 +16,17 @@ def getMainMenuEmbed():
             f"{'Available Games To Play':^42}\n"
             f"{'=' * botVariables.emebedDispalyWidth}\n"
         )
-    for game in botVariables.gameList:
-        asciiGameList += f"{game:^42}\n"
+    
+    if len(botVariables.gamesMultiplayer) > 0:
+        asciiGameList += f"\n{'MULTIPLAYER':-^42}\n"
+        for game in botVariables.gamesMultiplayer:
+            asciiGameList += f"{game:^42}\n"
+
+    
+    if len(botVariables.gamesSinglePlayer) > 0:
+        asciiGameList += f"\n{'SINGLE-PLAYER':-^42}\n"
+        for game in botVariables.gamesSinglePlayer:
+            asciiGameList += f"{game:^42}\n"
+    
     embed = createEmbedFromString(title, asciiGameList)
     return embed

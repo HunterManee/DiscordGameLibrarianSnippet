@@ -3,8 +3,11 @@ channelBackRooms = None
 prefix = '!'
 emebedDispalyWidth = 42
 
-gameList = [
-    'NEW_GAME'
+gamesMultiplayer = [
+    'Multiplayer_Game'
+]
+gamesSinglePlayer = [
+    'Single_Player_Game'
 ]
 activeGames = {}
 waitingList = []
