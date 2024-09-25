@@ -1,7 +1,7 @@
 from BotUtilities import GameImport
 
 ############## DEVELOPER VARIABLES ###############################
-prefix = 'Play '
+prefix = 'play '
 emebedDispalyWidth = 42
 
 channelBackroom = None

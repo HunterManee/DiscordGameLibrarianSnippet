@@ -82,11 +82,12 @@ async def on_message(message):
         return
     #The message is not from this bot
     messageChannel = message.channel
-    userInput = message.content
+    userInput = message.content.upper()
     
     #If the channel is a dm channel
     if isinstance(messageChannel, discord.DMChannel):
-        BotCommand.DMChannel
+        BotCommand.DMChannel().processCommand(userInput)
+
         await bot.process_commands(message)
         return
     
@@ -96,10 +97,13 @@ async def on_message(message):
 
     #if channel is a non arcade channel
     if messageChannel.id not in list(BotVariables.activeGameChannels.keys()):
+        BotCommand.Channel().processCommand(userInput)
+
         await bot.process_commands(message)
         return
 
     #Channel is an arcade channel
+    BotCommand.ArcadeChannel().processCommand(userInput)
 
     await bot.process_commands(message)
 

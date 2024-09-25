@@ -1,3 +1,4 @@
-from BotUtilities.BotCommands.Location import ArcadeChannel
-from BotUtilities.BotCommands.Location import Channel
-from BotUtilities.BotCommands.Location import DMChannel
+from BotUtilities.BotCommands.Location.ArcadeChannel import *
+from BotUtilities.BotCommands.Location.Channel import *
+from BotUtilities.BotCommands.Location.DMChannel import *
+
