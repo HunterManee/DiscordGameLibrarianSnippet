@@ -17,7 +17,7 @@ intents.dm_messages = True
 #https://discordpy.readthedocs.io/en/latest/intents.html
 
 #Create instance of GameBot
-bot = commands.Bot(command_prefix=BotVariables.prefix, intents=intents)
+bot = commands.Bot(command_prefix='∆', intents=intents)
 
 # Server Interaction ##############################################
 @bot.event
@@ -84,44 +84,31 @@ async def on_message(message):
     messageChannel = message.channel
     userInput = message.content.upper()
     
-    #If the channel is a dm channel
-    if isinstance(messageChannel, discord.DMChannel):
-        BotCommand.DMChannel().processCommand(userInput)
-
-        await bot.process_commands(message)
-        return
-    
-    #If the channel is not a text channel
-    if not(isinstance(messageChannel, discord.TextChannel)):
-        return
-
-    #if channel is a non arcade channel
-    if messageChannel.id not in list(BotVariables.activeGameChannels.keys()):
-        BotCommand.Channel().processCommand(userInput)
-
-        await bot.process_commands(message)
-        return
-
-    #Channel is an arcade channel
-    BotCommand.ArcadeChannel().processCommand(userInput)
-
-    await bot.process_commands(message)
-
-# Developer Interaction ###########################################
-@bot.command()
-async def ping(ctx):#when the user sends the message: !hello
-    await ctx.send('pong')
-
-# User Interaction ################################################
-@bot.command()
-async def games(ctx):
-    embed = BotFunctions.getMainMenuEmbed()
     try:
-        await ctx.send(embed=embed)
+
+        #If the channel is a dm channel
+        if isinstance(messageChannel, discord.DMChannel):
+            location, embed = BotCommand.DMChannel(user, messageChannel).processCommand(userInput)
+            await location.send(embed=embed)
+            await bot.process_commands(message)
+            return
+        
+        if isinstance(messageChannel, discord.TextChannel):
+
+            #if channel is a non arcade channel
+            if messageChannel.id not in list(BotVariables.activeGameChannels.keys()):
+                location, embed = BotCommand.Channel(user, messageChannel).processCommand(userInput)
+                await location.send(embed=embed)
+                await bot.process_commands(message)
+                return
+
+            #Channel is an arcade channel
+            location, embed = BotCommand.ArcadeChannel(user, messageChannel).processCommand(userInput)
+            await location.send(embed=embed)
+            await bot.process_commands(message)
+
     except:
-        print('---------------------------------------')
-        print('Failed to send user available games')#Send to back-rooms
-        print('---------------------------------------')
+        await bot.process_commands(message)
 
 
 bot.run(env.TOKEN)
