@@ -1,6 +1,10 @@
 import discord
-from BotUtilities import botVariables
 
+from BotUtilities import BotVariables
+
+import random
+
+############### GENERAL ########################################################
 def createEmbedFromString(title = None, asciiDisplay = None, hasError = False):
 
     if not hasError:
@@ -10,23 +14,48 @@ def createEmbedFromString(title = None, asciiDisplay = None, hasError = False):
     
     return embed
 
+############### MENU ###########################################################
 def getMainMenuEmbed():
     title = ''
     asciiGameList = (
             f"{'Available Games To Play':^42}\n"
-            f"{'=' * botVariables.emebedDispalyWidth}\n"
+            f"{'=' * BotVariables.emebedDispalyWidth}\n"
         )
     
-    if len(botVariables.gamesMultiplayer) > 0:
+    if len(BotVariables.gamesMultiplayer) > 0:
         asciiGameList += f"\n{'MULTIPLAYER':-^42}\n"
-        for game in botVariables.gamesMultiplayer:
+        for game in BotVariables.gamesMultiplayer.keys():
             asciiGameList += f"{game:^42}\n"
 
     
-    if len(botVariables.gamesSinglePlayer) > 0:
+    if len(BotVariables.gamesSinglePlayer) > 0:
         asciiGameList += f"\n{'SINGLE-PLAYER':-^42}\n"
-        for game in botVariables.gamesSinglePlayer:
+        for game in BotVariables.gamesSinglePlayer.keys():
             asciiGameList += f"{game:^42}\n"
     
     embed = createEmbedFromString(title, asciiGameList)
     return embed
+
+############### GAME ########################################################
+def validateGame(gameTitle):
+    games = list(BotVariables.gamesSinglePlayer.keys()) + list(BotVariables.gamesMultiplayer.keys())
+    if games.count(gameTitle) > 0:
+        return f'SUCCESS: {gameTitle} was found'
+    return f'LogicERROR: {gameTitle} was not found' 
+    
+
+def findRandomOpenMulitplayerGame(gameTitle):
+    gameType = BotVariables.gamesMultiplayer[gameTitle]
+
+    openGames = []
+    for game in BotVariables.activeMultiplayerGames.values():
+        if(gameType == type(game) and game.status == 'open'):
+            openGames.append(game)
+
+    if len(openGames) == 0:
+        status = 'close'
+        return status, gameType
+    
+    status = 'open'
+    randomIndex = random.randint(0, len(openGames)-1)
+    return status, openGames[randomIndex]
