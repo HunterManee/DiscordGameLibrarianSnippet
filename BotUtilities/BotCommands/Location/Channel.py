@@ -1,14 +1,16 @@
 from BotUtilities.BotCommands.ChannelCommand import *
 
+
 class Channel(ChannelCommand):
-    def __init__(self, user, location):
-        super().__init__(user, location)
+    def __init__(self, user, channel):
+        super().__init__(user, channel)
         self.commands = [ #ALL CAP COMMANDS
 
         ]
 
-    def processCommand(self, userInput):
-        location, embed = super().processCommand(userInput)
+    def processCommand(self, message):
+        location, embed = super().processCommand(message)
+        userInput = message.content
         if not(embed == None):#If user input is default command
             print('-'*42)
             return location, embed
@@ -20,13 +22,19 @@ class Channel(ChannelCommand):
         command = userInput in self.commands
 
         if titleMultiplayer:
-            return None
+            self.joinGame()
+            arcadeChannel = BotFunctions.findRandomOpenPublicMultiplayerGameChannel(userInput)
+            if arcadeChannel == None:
+                display = f'No {userInput} games are available'
+                embed = BotFunctions.createEmbedFromString(None, display, False)
+                return self.channel, embed
 
         if titleSinglePlayer:
-            return None
+            return None, None
 
         if command:
-            return None
+            userInput = userInput.upper()
+            return None, None
 
 
         

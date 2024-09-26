@@ -1,11 +1,13 @@
 
 class GAME:
-    def __init__(self):
-        self.playerList = []
+    def __init__(self, title):
+        # self.playerList = []
+        self.title = title
+        self.playerDict = {} #user/bot : User()/Bot()
         self.turnCounter = None
 
     def __repr__(self):
-        return (f"Game(playerList={self.playerList}, "
+        return (f"Game(playerDict={self.playerDict}, "
                 f"turnCounter={self.turnCounter}")
     
     def processHowToPlay(self):
@@ -27,3 +29,4 @@ class GAME:
     def processEnd(self):
         print('[GAME.py ln.12]PROCESSING END OF GAME...')
         return None
+

@@ -1,4 +1,4 @@
-from BotUtilities import GameImport
+from Games import GameImport
 
 ############## DEVELOPER VARIABLES ###############################
 prefix = 'PLAY '
@@ -7,9 +7,9 @@ emebedDispalyWidth = 42
 channelBackroom = None
 
 ############## CHANNEL/GAME VARIABLES ############################
-activeGames = {} #(user/channel).id : Game() *ie: SINGLE or MULTI PLAYER GAME object*
+activeGames = {} #user/channel : Game() *ie: SINGLE or MULTI PLAYER GAME object*
 
-activeGameChannels = {} #channel.id : type MULTIPLAY_GAME
+activeArcadeChannels = {} #channel : type MULTIPLAYER_GAME
 waitingList = {} #tyoe MULTIPLAYER_GAME : list(user)
 
 
@@ -20,13 +20,5 @@ gamesSinglePlayer = {
     'Single_Player_Game': GameImport.SINGLE_PLAYER_GAME #Template
 }
 
-
-'''
-    -arcade allows groups to play a multiplayer game public/private
-
-    -play GAME (ouside arcade): start single or join multi
-    -play GAME (inside arcade): Change multiplay game of arcade
-    -invite @member (inside arcade):invites member to public/private muliplayer game
-'''
 
 
