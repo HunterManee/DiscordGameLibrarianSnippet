@@ -1,6 +1,6 @@
 from Games.Utilites.PLAYER.PLAYER import *
 
-class BOT(PLAYER):
+class PLAYER_BOT(PLAYER):
     def __init__(self, botId = None):
 
         self.id = botId

@@ -1,24 +1,22 @@
-from Games import GameImport
+from BotUtilities.Models.GameModel import *
 
 ############## DEVELOPER VARIABLES ###############################
 prefix = 'PLAY '
 emebedDispalyWidth = 42
 
 channelBackroom = None
-
+botContacts = {
+    'Mr. Game N. Bot': 'https://discord.com/oauth2/authorize?client_id=1286361688358256711&permissions=8&integration_type=0&scope=bot'
+}
 ############## CHANNEL/GAME VARIABLES ############################
-activeGames = {} #user/channel : Game() *ie: SINGLE or MULTI PLAYER GAME object*
+activeGames = dict() #(user/channel)host : list(GAME(title, host))
+activePlayerDisplays = dict() #user : { displayName : message }
+activeArcadeDisplays = dict() #channel : { displayName : message } 
 
-activeArcadeChannels = {} #channel : type MULTIPLAYER_GAME
-waitingList = {} #tyoe MULTIPLAYER_GAME : list(user)
-
-
-gamesMultiplayer = { 
-    'Multiplayer_Game': GameImport.MULTIPLAYER_GAME #Template
+gameDict = { 
+    'GAME_NAME': GameModel('GAME_NAME', None)
 }
-gamesSinglePlayer = {
-    'Single_Player_Game': GameImport.SINGLE_PLAYER_GAME #Template
-}
+
 
 
 
