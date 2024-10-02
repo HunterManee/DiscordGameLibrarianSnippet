@@ -21,7 +21,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 # Server Interaction ##############################################
 @bot.event
 async def on_ready():
-    print('GameBot is ONLINE...')
+    print('ArcadeBot is ONLINE...')
     print('=======================================')
     for guild in bot.guilds:
         # Search through all channels in the guild
